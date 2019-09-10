@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
 
@@ -67,7 +68,7 @@ public class IngredientControllerTest {
         ingredientCommand.setId("1");
         ingredientCommand.setRecipeId("1");
 
-        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
+        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(Mono.just(ingredientCommand));
         mockMvc.perform(get("/recipe/1/ingredient/1/show"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/ingredient/show"))
@@ -81,7 +82,7 @@ public class IngredientControllerTest {
         ingredientCommand.setId("2");
         ingredientCommand.setRecipeId("2");
 
-        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
+        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(Mono.just(ingredientCommand));
         when(unitOfMeasureService.listAllUoms()).thenReturn(Flux.just(new UnitOfMeasureCommand()));
         mockMvc.perform(get("/recipe/2/ingredient/2/update"))
                 .andExpect(status().isOk())
@@ -97,7 +98,7 @@ public class IngredientControllerTest {
         ingredientCommand.setId("3");
         ingredientCommand.setRecipeId("3");
 
-        when(ingredientService.saveIngredientCommand(any())).thenReturn(ingredientCommand);
+        when(ingredientService.saveIngredientCommand(any())).thenReturn(Mono.just(ingredientCommand));
         mockMvc.perform(post("/recipe/3/ingredient")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")

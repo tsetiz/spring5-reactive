@@ -20,7 +20,7 @@ public class CategoryReactiveRepositoryTest {
 
     @Before
     public void setUp() {
-        categoryReactiveRepository.deleteAll();
+        categoryReactiveRepository.deleteAll().block();
     }
 
     @Test
