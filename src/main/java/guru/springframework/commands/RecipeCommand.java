@@ -39,7 +39,6 @@ public class RecipeCommand {
     @URL
     private String url;
 
-    @NotBlank
     private String directions;
     private Byte[] image;
     private List<IngredientCommand> ingredients = new ArrayList<>();

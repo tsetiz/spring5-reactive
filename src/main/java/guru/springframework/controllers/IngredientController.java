@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -75,7 +74,7 @@ public class IngredientController {
     }
 
     @PostMapping("/recipe/{recipeId}/ingredient")
-    public String saveOrUpdateIngredient(@ModelAttribute IngredientCommand ingredientCommand) {
+    public String saveOrUpdateIngredient(IngredientCommand ingredientCommand) {
         IngredientCommand command = ingredientService.saveIngredientCommand(ingredientCommand).block();
         log.debug("saved recipe id:" + command.getRecipeId());
         log.debug("saved ingredient id:" + command.getId());
